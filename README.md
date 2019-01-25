@@ -52,6 +52,29 @@ Go to `http://localhost:4000/sign_up`, we are going to make changes there
 1. Redirect in routes to `home#show`
 2. Create homes controller -> create the view
 
+### Accept email or username on sign in
+
+1. Change the field in the partial view `shoutr/app/views/sessions/_form.html.erb`
+2. We need to pluck in the Clearance::SessionsController and make the change
+
+   We need to inherit from Clearance sessions controller, override
+   `#authenticate` and make the routes to point to our controller
+
+   2.1. Create a `SessionsController` which inherits from `Clearance::SessionsController`
+   2.2. Modify the routes to point to our controllers except for `passwords resource`
+3. Override the `#authenticate` method and call the super
+The end result we want to accomplish is when the user passes username to fetch
+the email from the database and call the `#authenticate` super method.
+
+  3.1. Override `#authenticate` and call super with `session_params` which will
+       look like that `{ emai: ..., password:... }`.
+  3.2. `#session_params` will merge the password field with the email fetched from the db.
+  3.3. The `#user` method will fetch the User from the database.
+  3.4. Add the null pattern object (Guest) to handle missing users.
+  3.5. Hide implementational details under `#email_or_username`.
+4. Think about how we can make this better. There are too many methods in the
+   `SessionsController` and think about some tests.
+
 
 
 
