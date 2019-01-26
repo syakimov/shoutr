@@ -13,9 +13,11 @@
     <% if signed_in? %>
       Signed in as: <%= current_user.email %>
       <%= button_to 'Sign out', sign_out_path, method: :delete %>
-    <% else %>
+    <% elsif !current_page?(controller: 'sessions', action: 'new') %>
       <%= link_to 'Sign in', sign_in_path %>
     <% end %>
+
+    <h1>Shoutr</h1>
 
     <div id="flash">
       <% flash.each do |key, value| %>
