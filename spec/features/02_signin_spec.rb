@@ -8,6 +8,7 @@ feature 'User signs in with username successfully' do
     sign_in_as('person', 'pass')
 
     expect(page).to have_text 'Signed in as: person@example.com'
+    expect(page).to have_text 'Dashboard'
   end
 
   def sign_in_as(username, pass)
