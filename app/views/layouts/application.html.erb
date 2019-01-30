@@ -15,7 +15,7 @@
       <%= button_to 'Sign out', sign_out_path, method: :delete %>
     <% end %>
 
-    <% unless controller_name == 'sessions' && action_name == 'new' %>
+    <% unless signed_in? || controller_name == 'sessions' && action_name == 'new' %>
       <%= link_to 'Sign in', sign_in_path %>
     <% end %>
 
