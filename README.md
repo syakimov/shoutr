@@ -101,6 +101,17 @@ the controller.
    2) Create the shout in the `#create` action
 7. Check the db if the model is present
 
+### Add validations to Shout
+
+1. Add presence and length validation on Shout body
+2. Add user presence validation
+3. Display the too long body error message
+   1) If we create a shout with too long body the error is only visible
+      in the log - it is not displayed to the user
+   2) In the `shouts#create` add `#redirect_options_for`
+      - notice for success `{ notice: 'Shouted successfully' }`
+      - alert for error    `{ alert: 'Could not shout' }`
+
 
 #### Useful commands
 `rails g` lists all generators
