@@ -86,6 +86,21 @@ the controller.
    Route to `dashboards#show` in a block `constraints Clearance::Constraints::SignedIn.new`
 2. Create controller > view
 
+### Add form to the dashboard so users can create Shouts
+
+1. Add form in the dashboard #show
+2. Initialize `@shout` in the controller action
+3. Create the Shout model
+   1) generate the model & migration `rails g model Shout body user:references`
+   2) open the migration and add null constraint on the body
+   3) run the migration
+4. Fix missing `shouts_path` error by adding the shout resources
+5. Add controller > action > `redirect_to root_path`
+6. Create the shout for the current user
+   1) Add reference in the user model and depend on destroy
+   2) Create the shout in the `#create` action
+7. Check the db if the model is present
+
 
 #### Useful commands
 `rails g` lists all generators
