@@ -4,3 +4,12 @@
   <%= form.text_field :body, placeholder: 'shout here!', required: true %>
   <%= form.submit 'Shout' %>
 <% end %>
+
+
+<% @shouts.order(created_at: :desc).each do |shout| %>
+  <div>
+    <%= shout.user.username %>
+    <%= shout.body %>
+    <%= time_ago_in_words(shout.created_at) %> ago
+  </div>
+<% end %>

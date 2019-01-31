@@ -112,6 +112,15 @@ the controller.
       - notice for success `{ notice: 'Shouted successfully' }`
       - alert for error    `{ alert: 'Could not shout' }`
 
+### Display user shouts in dashboard
+
+1. Add `@shouts` in the view
+2. Iterate over `@shouts` in the `dashboard#show` and render
+   1) shout username
+   2) shout body
+   3) created_at in words (`time_ago_in_words`)
+3. Order the shouts based on when they are created
+
 
 #### Useful commands
 `rails g` lists all generators
