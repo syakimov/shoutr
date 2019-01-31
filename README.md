@@ -126,5 +126,18 @@ the controller.
 2. Extract the Shout partial in `app/views/shouts/_shout`
 3. Bonus -> delegate username to user
 
+### Add user and shout pages
+1. Add a link to the user in the dashboard
+   `<%= link_to shout.username, shout.user %>`
+2. Add a link to the shout
+   ```
+   <%= link_to shout do %>
+     <%= time_ago_in_words(shout.created_at) %> ago
+   <% end %>
+   ```
+3. Add route > action > template
+4. Make the template similar to `dashboard`
+5. Reuse the partial for shouts page as well
+
 #### Useful commands
 `rails g` lists all generators

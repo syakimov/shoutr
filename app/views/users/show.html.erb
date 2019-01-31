@@ -1,0 +1,3 @@
+<h2><%= @user.username %></h2>
+
+<%= render @user.shouts.order(created_at: :desc) %>
