@@ -174,6 +174,9 @@ the Shout type { TextShout, PhotoShout }
    4) Move Shout `body` validation to the `TextShout`
 
 
+### Reroute sign_up to go through the your users controller
+1. Make adjustments in the `config/routes`
+2. Add plain new action in the users controller
 
 #### Useful commands
 `rails g` lists all generators
