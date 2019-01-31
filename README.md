@@ -139,5 +139,47 @@ the controller.
 4. Make the template similar to `dashboard`
 5. Reuse the partial for shouts page as well
 
+
+### Introduce Photo Shout
+Introduce Polymorphic Associations use `shout.content` independently of
+the Shout type { TextShout, PhotoShout }
+
+1. Add a TextShout model
+   1) `rails g model TextShout body`
+   2) Modify the migration adding not null body constraint
+   3) Run the migration
+2. Migrate old data to new data model
+   1) `rails g migration MakeShoutsPolymorphic`
+   2) Add `content_type` and `content_id` to shouts table and add index
+      on both of them
+   3) Transfer all shouts in the database to TextShouts
+      - Define `Shout` and `TextShout` to inherit from ApplicationRecord
+
+      You need to wrap this in an reversible block.
+      - Reset shout column information (remove any cached columns)
+      - For each shout
+        - UP create a TextShout and attach the reference
+        - DOWN update back the shout body with the `shout.content.body`
+          and destroy the `shout.content`
+   4) Remove `body` column (remove_column: :shouts, :body, :string)
+3. Fix broken relations
+   1) Add polymorphic belongs_to content relation to Shout model
+   2) Use `shout.content.body` in the shout partial
+   3) Restart server to clear cache and refresh dashboard
+   4) Inside `form.fields_for :content` block nest the body field
+4. Rewrite shout params in the shouts controller
+   1) `#shout_params` should contain { content: TextShout }
+   2) Build the TextShout from `#content_params`
+   3) `#content_params` should dig into shout > content to find the body
+   4) Move Shout `body` validation to the `TextShout`
+
+
+
 #### Useful commands
 `rails g` lists all generators
+
+#### TODO
+Put controllers on a diet
+Move logic from the views into presenter classes
+Reduce the amount of feature spec in favour of specs
+Check params_for(ModelName)
