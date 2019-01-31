@@ -121,6 +121,10 @@ the controller.
    3) created_at in words (`time_ago_in_words`)
 3. Order the shouts based on when they are created
 
+### Extract Shout rendering in a shout view partial
+1. Replace the iteration with `<%= render @shouts.order(created_at: :desc) %>`
+2. Extract the Shout partial in `app/views/shouts/_shout`
+3. Bonus -> delegate username to user
 
 #### Useful commands
 `rails g` lists all generators
