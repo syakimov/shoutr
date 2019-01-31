@@ -183,6 +183,42 @@ the Shout type { TextShout, PhotoShout }
 2. `change_column_null` to user_id, content_id and content_type
 3. Run the migration and check again the `schema.rb`
 
+### Introduce PhotoShout to the system
+
+1. Add `paperclip` gem
+2. Add a PhotoShout form in the dashboard
+   Just use `file_field` and remove the placeholder
+3. Make shouts controller distinguish PhotoShout from TextShout
+   1) Implement this by adding hidden content_type field in both forms
+   2) Chose what kind of shout to create based on the content_type in
+      shouts controller `#content_from_params`
+4. Introduce PhotoShout model
+   1) Generate the model `rails g model PhotoShout image:attachment`
+   2) Open the migration and add null false validation
+   3) Run the migration and check the scheme
+   4) Add the image to PhotoShout - use `paperclip` method
+      `has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }`
+5. Restart the server and refresh the browser
+6. You must be seeing `Paperclip::Errors::MissingRequiredValidatorError`
+7. This is happening because `paperclip` enforces us to add validation
+   on the type of image users upload. This protects the app from
+   $xss-attack$. Add the following validation
+   ```
+    validates_attachment :image,
+      content_type: { content_type: ['image/jpeg', 'image/png', 'image/gif'] },
+      size: { in: 0..10.megabytes },
+      presence: true
+   ```
+8. `Please install ImageMagick` -> brew install imagemagick
+9. `undefined method body for PhotoShout` -> we have created a
+   PhotoShout and we are trying to render it as TextShout.
+   Fix this by using Rails polymorphic rendering.
+   1) Stop displaying the content body and start `<%= render shout.content %>`
+   2) Create PhotoShout partial
+   3) Create TextShout partial
+10. Add `public/system` to the `.gitignore` (there are stored the images)
+
+
 #### Useful commands
 `rails g` lists all generators
 
@@ -191,3 +227,5 @@ Put controllers on a diet
 Move logic from the views into presenter classes
 Reduce the amount of feature spec in favour of specs
 Check params_for(ModelName)
+Try to create PhotoShout and TextShout without case statement in the
+  shouts controller

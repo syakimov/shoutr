@@ -5,6 +5,16 @@
     <%= content_form.text_field :body, placeholder: 'shout here!', required: true %>
   <% end %>
 
+  <%= form.hidden_field :content_type, value: 'TextShout' %>
+  <%= form.submit 'Shout' %>
+<% end %>
+
+<%= form_for @shout do |form| %>
+  <%= form.fields_for :content do |content_form| %>
+    <%= content_form.file_field :image, required: true %>
+  <% end %>
+
+  <%= form.hidden_field :content_type, value: 'PhotoShout' %>
   <%= form.submit 'Shout' %>
 <% end %>
 
