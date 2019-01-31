@@ -14,4 +14,11 @@ module Features
                 password: 'pass' }.merge(options)
     User.create! options
   end
+
+  def sign_in
+    user = create_user
+    sign_in_as(user)
+
+    user
+  end
 end
