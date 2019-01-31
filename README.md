@@ -178,6 +178,11 @@ the Shout type { TextShout, PhotoShout }
 1. Make adjustments in the `config/routes`
 2. Add plain new action in the users controller
 
+### Add null validation in the database in shouts table
+1. Create AddNullFalseToShouts migration
+2. `change_column_null` to user_id, content_id and content_type
+3. Run the migration and check again the `schema.rb`
+
 #### Useful commands
 `rails g` lists all generators
 
