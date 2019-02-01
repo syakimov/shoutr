@@ -13,7 +13,7 @@ end
 feature 'User sees his own shouts' do
   scenario 'successfully' do
     user = sign_in
-    user.shouts.create! body: 'shout_body'
+    create_text_shout 'shout_body'
 
     visit user_path(user)
 

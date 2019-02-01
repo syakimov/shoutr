@@ -21,4 +21,11 @@ module Features
 
     user
   end
+
+  def create_text_shout(shout_body)
+    visit root_path
+
+    fill_in placeholder: 'shout here!', with: shout_body
+    click_on 'Shout text'
+  end
 end

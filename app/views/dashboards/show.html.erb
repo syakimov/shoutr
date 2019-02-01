@@ -6,7 +6,7 @@
   <% end %>
 
   <%= form.hidden_field :content_type, value: 'TextShout' %>
-  <%= form.submit 'Shout' %>
+  <%= form.submit 'Shout text' %>
 <% end %>
 
 <%= form_for @shout do |form| %>
@@ -15,7 +15,7 @@
   <% end %>
 
   <%= form.hidden_field :content_type, value: 'PhotoShout' %>
-  <%= form.submit 'Shout' %>
+  <%= form.submit 'Shout photo' %>
 <% end %>
 
 
